@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { location } from "./types"
+import Table from "./components/Table"
 import axios from "axios"
 import "./App.css"
 
@@ -13,17 +14,7 @@ function App() {
 		setTime(new Date())
 	}, [])
 
-	const addHours = (time: Date, hours: number) => {
-		const newTime = new Date(
-			time.getTime() + hours * 60 * 60 * 1000
-		).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
-		const newDate = new Date(time.getTime() + hours * 3600000)
 
-		const month = newDate.getMonth() + 1
-		const day = newDate.getDate()
-
-		return month + "/" + day + " " + newTime
-	}
 
 	const findMe = () => {
 		setLoading(true)
@@ -45,10 +36,9 @@ function App() {
 					axios
 						.get(apiUrl)
 						.then((response) => {
-							console.log(response.data)
+							const data = response.data.dataseries
 							// You can further process the response data here
-							setWeather(response.data)
-							// console.log(weather.dataseries)
+							setWeather(data)
 							setLoading(false)
 						})
 						.catch((error) => {
@@ -80,34 +70,42 @@ function App() {
 			</div>
 		)
 	} else {
-		resultsTable = weather.dataseries.map((hour: any, index: number) => (
-			<div>
-				<tr>
-					<th>{addHours(time, hour.timepoint)}</th>
-				</tr>
-				<tr>{hour.cloudcover}</tr>
-				<tr>{hour.lifted_index}</tr>
-				<tr>{hour.prec_type}</tr>
-				<tr>{hour.transparency}</tr>
-			</div>
-		))
-		return (results = (
-			<div className="container">
-				<div id="key">
-					<table id="key">
-						<tr>Time</tr>
-						<tr>Cloud Cover</tr>
-						<tr>Lifted Index</tr>
-						<tr>Precipitation</tr>
-						<tr>Transparency</tr>
-					</table>
-				</div>
-				<div className="results-table">
-					<table>{resultsTable}</table>
-				</div>
-			</div>
-		))
+		// resultsTable = weather.dataseries.map((hour: any, index: number) => (
+		// 	<div>
+		// 		<tr>
+		// 			<th>{addHours(time, hour.timepoint)}</th>
+		// 		</tr>
+		// 		<tr>{hour.cloudcover}</tr>
+		// 		<tr>{hour.lifted_index}</tr>
+		// 		<tr>{hour.prec_type}</tr>
+		// 		<tr>{hour.transparency}</tr>
+		// 	</div>
+		// ))
+		// results = (
+		// 	<div className="container">
+		// 		<div id="key">
+		// 			<table id="key">
+		// 				<tr>Time</tr>
+		// 				<tr>Cloud Cover</tr>
+		// 				<tr>Lifted Index</tr>
+		// 				<tr>Precipitation</tr>
+		// 				<tr>Transparency</tr>
+		// 			</table>
+		// 		</div>
+		// 		<div className="results-table">
+		// 			<table>{resultsTable}</table>
+		// 		</div>
+		// 	</div>
+		// )
 	}
+	let report
+	if(weather){
+		report = (
+
+			<Table weather={weather}/>
+		)
+	}
+
 
 	return (
 		<>
@@ -115,8 +113,8 @@ function App() {
 				<h1>Astro Weather</h1>
 				<button onClick={findMe}>Get Location 📍</button>
 			</div>
-			<div className="container">{results}</div>
-
+			{report}
+			
 		</>
 	)
 }
