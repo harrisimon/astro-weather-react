@@ -1,37 +1,92 @@
 #root {
-/* center everything but start from flex start */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  text-align: center;
-  min-height: 100vh;
-  min-width: 320px;
-  width: 100%;
+	/* center everything but start from flex start */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	text-align: center;
+	min-height: 100vh;
+	min-width: 320px;
+	width: 100%;
 }
 .hr {
-  display: flex;
-  flex-direction: column;
-  width: 5rem;
-  margin: 20px;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	width: 5rem;
+	/* margin: 20px; */
+	align-items: center;
 }
 .results-table {
-  /* make this scrollable */
-  overflow: auto;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-  width: 80%;
+	/* make this scrollable */
+	overflow: auto;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: row;
+	/* width: 80%; */
 }
 .loading {
-  /* center this */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	/* center this */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+	text-align: center;
+}
+.container {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: flex-start;
+	overflow: auto;
+	width: 100%;
+	margin: 1rem;
+}
+
+#key {
+	display: flex;
   flex-direction: column;
-  width: 100%;
+	align-items: stretch;
+	text-align: center;
+
+	background-color: #f1f1f1;
+}
+tr {
+  height: 90px;
+  text-overflow: ellipsis;
+  align-items: center;
+
+}
+ul {
+	list-style: none;
+}
+
+#scrollable-view {
+	flex: 1;
+	overflow-y: scroll;
+	padding: 20px;
+}
+
+table {
+	width: 80%;
+	border-collapse: collapse;
   text-align: center;
 }
 
+th,
+td {
+	/* border: 1px solid #ddd; */
+
+  margin: 0;
+	text-align: left;
+  text-overflow: ellipsis;
+}
+
+th {
+	background-color: #f2f2f2;
+}
+.scrolly {
+  height: 200px;
+  overflow: scroll;
+}

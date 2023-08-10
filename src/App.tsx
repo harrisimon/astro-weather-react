@@ -5,22 +5,28 @@ import "./App.css"
 
 function App() {
 	const [location, setLocation] = useState<location>({ lat: 0, long: 0 })
-  const [loading, setLoading] = useState<boolean>(false)
+	const [loading, setLoading] = useState<boolean>(false)
 	const [weather, setWeather] = useState<any>(null)
-  const [time, setTime] = useState(new Date());
+	const [time, setTime] = useState(new Date())
 
-  useEffect(() => {
-    setTime(new Date())
-  },[]);
+	useEffect(() => {
+		setTime(new Date())
+	}, [])
 
-  const addHours = (time: Date, hours: number) => {
-    const newTime = new Date(time.getTime() + hours*60*60*1000).toLocaleTimeString().toString()
-    const newDate = new Date(time.getTime()+ hours*3600000).toLocaleDateString().toString();
-    return newDate + " " + newTime;
-  }
-  
+	const addHours = (time: Date, hours: number) => {
+		const newTime = new Date(
+			time.getTime() + hours * 60 * 60 * 1000
+		).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
+		const newDate = new Date(time.getTime() + hours * 3600000)
+
+		const month = newDate.getMonth() + 1
+		const day = newDate.getDate()
+
+		return month + "/" + day + " " + newTime
+	}
+
 	const findMe = () => {
-    setLoading(true)
+		setLoading(true)
 		try {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -43,7 +49,7 @@ function App() {
 							// You can further process the response data here
 							setWeather(response.data)
 							// console.log(weather.dataseries)
-              setLoading(false)
+							setLoading(false)
 						})
 						.catch((error) => {
 							console.error("Error fetching data:", error)
@@ -58,32 +64,49 @@ function App() {
 		}
 	}
 	let results
+	let resultsTable
 	if (!weather && !loading) {
 		{
-			results = <div className="loading">
-        <p>Click locate to get weather</p>
-        </div>
-		}
-	} else if ((!weather && loading) || (weather && loading)) {
-
-    results = <div className="loading">
-
-      <p>Loading...</p>
-    </div>
-  }else {
-		results = weather.dataseries.map((hour: any, index: number) => {
-			return (
-				<div key={index} className="hr">
-					<p>
-            
-            {addHours(time, hour.timepoint)}</p>
-					<p>cloud cover {hour.cloudcover}</p>
-					<p>lifted index {hour.lifted_index}</p>
-					<p>Precipation {hour.prec_type}</p>
-					<p>Transparency {hour.transparency}</p>
+			results = (
+				<div className="loading">
+					<p>Click locate to get weather</p>
 				</div>
 			)
-		})
+		}
+	} else if ((!weather && loading) || (weather && loading)) {
+		results = (
+			<div className="loading">
+				<p>Loading...</p>
+			</div>
+		)
+	} else {
+		resultsTable = weather.dataseries.map((hour: any, index: number) => (
+			<div>
+				<tr>
+					<th>{addHours(time, hour.timepoint)}</th>
+				</tr>
+				<tr>{hour.cloudcover}</tr>
+				<tr>{hour.lifted_index}</tr>
+				<tr>{hour.prec_type}</tr>
+				<tr>{hour.transparency}</tr>
+			</div>
+		))
+		return (results = (
+			<div className="container">
+				<div id="key">
+					<table id="key">
+						<tr>Time</tr>
+						<tr>Cloud Cover</tr>
+						<tr>Lifted Index</tr>
+						<tr>Precipitation</tr>
+						<tr>Transparency</tr>
+					</table>
+				</div>
+				<div className="results-table">
+					<table>{resultsTable}</table>
+				</div>
+			</div>
+		))
 	}
 
 	return (
@@ -92,7 +115,8 @@ function App() {
 				<h1>Astro Weather</h1>
 				<button onClick={findMe}>Get Location 📍</button>
 			</div>
-			<div className="results-table">{results}</div>
+			<div className="container">{results}</div>
+
 		</>
 	)
 }
