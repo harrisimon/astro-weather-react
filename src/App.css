@@ -9,4 +9,18 @@
   /* fill the whole width */
   width: 100%;
 }
+.hr {
+  display: flex;
+  flex-direction: column;
+  width: 5rem;
+  margin: 8px;
+  align-items: center;
+}
+.results-table {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 8rem;
+}
 
