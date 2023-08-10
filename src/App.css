@@ -6,21 +6,32 @@
   justify-content: flex-start;
   text-align: center;
   min-height: 100vh;
-  /* fill the whole width */
+  min-width: 320px;
   width: 100%;
 }
 .hr {
   display: flex;
   flex-direction: column;
   width: 5rem;
-  margin: 8px;
+  margin: 20px;
   align-items: center;
 }
 .results-table {
+  /* make this scrollable */
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: 80%;
+}
+.loading {
+  /* center this */
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  width: 8rem;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
 }
 

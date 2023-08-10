@@ -10,12 +10,15 @@ function App() {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    setInterval(() => {
-      setTime(new Date());
+    setTime(new Date())
+  },[]);
 
-    }, 1000);
-  }, []);
-
+  const addHours = (time: Date, hours: number) => {
+    const newTime = new Date(time.getTime() + hours*60*60*1000).toLocaleTimeString().toString()
+    const newDate = new Date(time.getTime()+ hours*3600000).toLocaleDateString().toString();
+    return newDate + " " + newTime;
+  }
+  
 	const findMe = () => {
     setLoading(true)
 		try {
@@ -57,15 +60,23 @@ function App() {
 	let results
 	if (!weather && !loading) {
 		{
-			results = <p>Click locate to get weather</p>
+			results = <div className="loading">
+        <p>Click locate to get weather</p>
+        </div>
 		}
 	} else if ((!weather && loading) || (weather && loading)) {
-    results = <p>Loading...</p>
+
+    results = <div className="loading">
+
+      <p>Loading...</p>
+    </div>
   }else {
 		results = weather.dataseries.map((hour: any, index: number) => {
 			return (
 				<div key={index} className="hr">
-					<p>{hour.timepoint} +hrs</p>
+					<p>
+            
+            {addHours(time, hour.timepoint)}</p>
 					<p>cloud cover {hour.cloudcover}</p>
 					<p>lifted index {hour.lifted_index}</p>
 					<p>Precipation {hour.prec_type}</p>
