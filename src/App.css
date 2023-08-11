@@ -23,10 +23,8 @@
 	align-items: center;
 	justify-content: flex-start;
 	flex-direction: row;
-	/* width: 80%; */
 }
 .loading {
-	/* center this */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -34,17 +32,9 @@
 	width: 100%;
 	text-align: center;
 }
-/* .container {
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	justify-content: flex-start;
-	overflow: auto;
-	width: 100%;
-	margin: 1rem;
-} */
-/* WeatherTable.css */
+
 .table-container {
+	margin: 20px;
 	width: 80%;
 	overflow-x: auto;
   }
@@ -74,11 +64,41 @@
 	left: 0;
 	z-index: 1;
   }
-  .blank-header{
-	background-color: white; /* Color of the blank box */
-	border: none;
+  .blank-header {
+	position: sticky;
+	top: 0; /* Stick to the top */
+	background-color: white; 
+	z-index: 2; /* Place it above other headers */
 }
-  
+
+.blank-header::before {
+	content: ""; /* Add this */
+	display: block;
+	height: 100%; /* Adjust to match the height of the headers */
+	width: 100%; /* Cover the whole width */
+	position: absolute;
+	z-index: -1; /* Behind other elements */
+}
+@media screen and (max-width: 600px) {
+	.table-container {
+		margin: 20px;
+		width: 95%;
+	}
+	th {
+		width: 20px;
+	}
+	.blank-header {
+	
+		width: 20px;
+	}
+
+  }
+/* write some rules to make a darkmode */
+
+
+
+	
+
 
 /* #key {
 	display: flex;

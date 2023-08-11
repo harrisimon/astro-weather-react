@@ -8,13 +8,7 @@ function App() {
 	const [location, setLocation] = useState<location>({ lat: 0, long: 0 })
 	const [loading, setLoading] = useState<boolean>(false)
 	const [weather, setWeather] = useState<any>(null)
-	const [time, setTime] = useState(new Date())
-
-	useEffect(() => {
-		setTime(new Date())
-	}, [])
-
-
+	const [sunrise, setSunrise] = useState<any>(null)
 
 	const findMe = () => {
 		setLoading(true)
@@ -28,22 +22,24 @@ function App() {
 						lat: lat,
 						long: long,
 					})
-
 					// Construct the URL with latitude and longitude as query parameters
-					const apiUrl = `http://www.7timer.info/bin/api.pl?lon=${long}&lat=${lat}&product=astro&output=json`
-
-					// Use Axios to make the API request
-					axios
-						.get(apiUrl)
-						.then((response) => {
-							const data = response.data.dataseries
-							// You can further process the response data here
-							setWeather(data)
+					const astroAPIURL = `http://www.7timer.info/bin/api.pl?lon=${long}&lat=${lat}&product=astro&output=json`
+					
+					const sunriseAPIURL = `https://api.sunrisesunset.io/json?lat=${lat}&lng=${long}`
+					const astroAPI = axios.get(astroAPIURL)
+					const sunriseAPI = axios.get(sunriseAPIURL)
+					axios.all([astroAPI, sunriseAPI]).then(
+						// add astro api response to weather state
+						axios.spread((...responses) => {
+							const astroResponse = responses[0]
+							const sunriseResponse = responses[1]
+							const astroData = astroResponse.data.dataseries
+							const sunriseData = sunriseResponse.data.results
+							setWeather(astroData)
+							setSunrise(sunriseData)
 							setLoading(false)
 						})
-						.catch((error) => {
-							console.error("Error fetching data:", error)
-						})
+					)
 				},
 				(error) => {
 					console.error("Error getting location:", error)
@@ -53,68 +49,34 @@ function App() {
 			console.log(err)
 		}
 	}
-	let results
-	let resultsTable
-	if (!weather && !loading) {
+
+	let report
+	if (weather && !loading) {
+		console.log(sunrise)
+		report = <Table weather={weather} />
+	} else if (!weather && !loading) {
 		{
-			results = (
+			report = (
 				<div className="loading">
 					<p>Click locate to get weather</p>
 				</div>
 			)
 		}
 	} else if ((!weather && loading) || (weather && loading)) {
-		results = (
+		report = (
 			<div className="loading">
 				<p>Loading...</p>
 			</div>
 		)
-	} else {
-		// resultsTable = weather.dataseries.map((hour: any, index: number) => (
-		// 	<div>
-		// 		<tr>
-		// 			<th>{addHours(time, hour.timepoint)}</th>
-		// 		</tr>
-		// 		<tr>{hour.cloudcover}</tr>
-		// 		<tr>{hour.lifted_index}</tr>
-		// 		<tr>{hour.prec_type}</tr>
-		// 		<tr>{hour.transparency}</tr>
-		// 	</div>
-		// ))
-		// results = (
-		// 	<div className="container">
-		// 		<div id="key">
-		// 			<table id="key">
-		// 				<tr>Time</tr>
-		// 				<tr>Cloud Cover</tr>
-		// 				<tr>Lifted Index</tr>
-		// 				<tr>Precipitation</tr>
-		// 				<tr>Transparency</tr>
-		// 			</table>
-		// 		</div>
-		// 		<div className="results-table">
-		// 			<table>{resultsTable}</table>
-		// 		</div>
-		// 	</div>
-		// )
 	}
-	let report
-	if(weather){
-		report = (
-
-			<Table weather={weather}/>
-		)
-	}
-
 
 	return (
 		<>
 			<div>
 				<h1>Astro Weather</h1>
-				<button onClick={findMe}>Get Location 📍</button>
+				<button onClick={findMe}>Locate 📍</button>
 			</div>
 			{report}
-			
 		</>
 	)
 }

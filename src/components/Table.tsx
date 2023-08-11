@@ -2,7 +2,11 @@ import React, { useState } from "react"
 import { addHours } from "../helpers/convertHrsToDate"
 
 const Table = (props: any) => {
-	const { weather } = props
+    const { weather } = props
+    const [isFahrenheit, setIsFahrenheit] = useState(true);
+    const toggleTemperatureUnit = () => {
+        setIsFahrenheit(!isFahrenheit);
+      };
 	const headerColumns = [
 		"Cloudcover",
 		"Seeing",
@@ -31,20 +35,26 @@ const Table = (props: any) => {
 				<tbody>
 					{headerColumns.map((header, index) => (
 						<tr key={index}>
-							<th scope="row">{header}</th>
+							<th scope="row">{
+                            header === "Temp2m" ?
+                            <button onClick={toggleTemperatureUnit}>
+                                {isFahrenheit ? "°F" : "°C"}
+                            </button>
+                            :
+                            header}</th>
 							{weather.map(
 								(dataPoint: any, dataIndex: number) => (
-									<td key={dataIndex}>
-										{header === "Wind (10m)"
-											? `${dataPoint.wind10m.direction} ${dataPoint.wind10m.speed} m/s`
-											: header === "Precip Type"
-											? dataPoint.prec_type
-											: dataPoint[
-													header
-														.toLowerCase()
-														.replace(" ", "_")
-											  ]}
-									</td>
+                                    <td key={dataIndex}>
+                                    {header === "Wind (10m)"
+                                      ? `${dataPoint.wind10m.direction} ${dataPoint.wind10m.speed} m/s`
+                                      : header === "Temp2m"
+                                      ? isFahrenheit
+
+                                      ? `${((dataPoint.temp2m * 9/5) + 32).toFixed(0)} °F` : `${dataPoint.temp2m.toFixed(0)} °C`
+                                      : header === "Precip Type"
+                                      ? dataPoint.prec_type
+                                      : dataPoint[header.toLowerCase().replace(" ", "_")]}
+                                  </td>
 								)
 							)}
 						</tr>
