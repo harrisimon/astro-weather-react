@@ -8,22 +8,25 @@
 	min-height: 100vh;
 	min-width: 320px;
 	width: 100%;
+	transition: background-color 0.3s, color 0.3s;
 }
+/* Light mode styles */
 .hr {
 	display: flex;
 	flex-direction: column;
 	width: 5rem;
-	/* margin: 20px; */
 	align-items: center;
 }
+
 .results-table {
-	/* make this scrollable */
-	overflow: auto;
+	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
 	flex-direction: row;
+	border: #494545 1px solid;
 }
+
 .loading {
 	display: flex;
 	align-items: center;
@@ -37,48 +40,122 @@
 	margin: 20px;
 	width: 80%;
 	overflow-x: auto;
-  }
-  
-  .weather-table {
+	white-space: nowrap;
+}
+
+.weather-table {
 	border-collapse: collapse;
-	width: max-content; /* Adjust as needed */
-  }
-  
-  .weather-table th,
-  .weather-table td {
+	width: max-content;
+}
+
+.weather-table th,
+.weather-table td {
 	padding: 10px;
 	text-align: center;
 	border: 1px solid #ddd;
-  }
-  
-  .weather-table th {
+}
+
+.weather-table th {
 	position: sticky;
-	left: 0;
+	left: -1px;
 	background-color: #f2f2f2;
-	border-right: none;
-  }
-  
-  .weather-table td:first-child {
+	/* border-right: none; */
+	border: 1px solid #ddd;
+}
+
+.weather-table td:first-child {
 	background-color: #f2f2f2;
 	position: sticky;
-	left: 0;
+	left: -1px;
 	z-index: 1;
-  }
-  .blank-header {
+	border: 1px solid #ddd;
+}
+.weather-table td:first-child[scope="row"] {
+	background-color: #f2f2f2;
 	position: sticky;
-	top: 0; /* Stick to the top */
-	background-color: white; 
-	z-index: 2; /* Place it above other headers */
+	left: -1px;
+	z-index: 1;
+	border: 1px solid #ddd;
+}
+
+.blank-header {
+	position: sticky;
+	top: 0;
+	background-color: white;
+	z-index: 2;
 }
 
 .blank-header::before {
-	content: ""; /* Add this */
+	content: "";
 	display: block;
-	height: 100%; /* Adjust to match the height of the headers */
-	width: 100%; /* Cover the whole width */
+	height: 100%;
+	width: 100%;
 	position: absolute;
-	z-index: -1; /* Behind other elements */
+	z-index: -1;
 }
+
+/* Dark mode styles */
+.dark-mode {
+	background-color: #121212;
+	color: #ffffff;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode .hr {
+	color: #ffffff;
+}
+
+.dark-mode .results-table {
+	background-color: #1e1e1e;
+	border: 1px solid #333333;
+}
+
+.dark-mode .loading {
+	color: #ffffff;
+}
+
+.dark-mode .table-container {
+	background-color: #1e1e1e;
+}
+
+.dark-mode .weather-table {
+	border: 1px solid #333333;
+}
+
+.dark-mode .weather-table th,
+.dark-mode .weather-table td {
+	border: 1px solid #555555;
+	background-color: #1e1e1e;
+	color: #ffffff;
+}
+
+.dark-mode .weather-table th {
+	background-color: #333333;
+}
+
+.dark-mode .weather-table td:first-child {
+	background-color: #1e1e1e;
+}
+
+.dark-mode .blank-header {
+	background-color: #121212;
+	position: sticky;
+	top: 0;
+	left:0;
+	z-index: 2;
+}
+
+.dark-mode .blank-header::before {
+	background-color: #333333;
+	content: "";
+	display: block;
+	top: 0;
+	left:0;
+	width: 100%;
+	position: absolute;
+	z-index: -1;
+}
+
 @media screen and (max-width: 600px) {
 	.table-container {
 		margin: 20px;
@@ -91,8 +168,38 @@
 	
 		width: 20px;
 	}
-
   }
+
+  /* make the ball class bounce back and forth */
+  .ball {
+	/* make this div a ball */
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: lightblue;
+	animation: bounce 1s infinite;
+	
+	
+}
+/* write the bounce animation to move back and forth between two points and have the ball change into a star at 50%*/
+
+@keyframes bounce {
+	0% {
+		transform: translateX(0);
+	}
+	50% {
+		transform: translateX(100px);
+		
+		background-color: #494545;
+	}
+	100% {
+		transform: translateX(0);
+		border-radius: 50%;
+		background-color: lightblue;
+	}
+}
+
+
 /* write some rules to make a darkmode */
 
 

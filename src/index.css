@@ -54,4 +54,13 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+.dark-mode button {
+  background-color: #333333;
+  color: #ffffff;
+  border-color: transparent; /* Adjust border color for dark mode */
+}
+.dark-mode button:hover {
+  border-color: #646cff;
+}
+
 /* write some darkmode rules */
