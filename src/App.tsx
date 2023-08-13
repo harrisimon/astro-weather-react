@@ -13,12 +13,23 @@ function App() {
 	const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
 
 	useEffect(() => {
-		if (isDarkMode) {
+		if (
+			isDarkMode ||
+			(window.matchMedia &&
+				window.matchMedia("(prefers-color-scheme: dark)").matches)
+		) {
 			document.body.classList.add("dark-mode")
 		} else {
 			document.body.classList.remove("dark-mode")
 		}
+		console.log('help')
 	}, [isDarkMode])
+	window
+		.matchMedia("(prefers-color-scheme: dark)")
+		.addEventListener("change", (event) => {
+			const newColorScheme = event.matches ? "dark" : "light"
+			console.log(newColorScheme)
+		})
 
 	const findMe = () => {
 		setLoading(true)
@@ -51,7 +62,6 @@ function App() {
 						}
 					)
 
-			
 					let end = performance.now()
 					console.log(end - start)
 				},
@@ -87,13 +97,18 @@ function App() {
 	return (
 		<>
 			<div>
-				<h1>Astro Weather</h1>
-				<button onClick={() => setIsDarkMode(!isDarkMode)} style={{"margin": "10px"}}>
-					{isDarkMode ? "Light Mode 🌝" : "Dark Mode 🌚"}
+				<h1 className="title">Astro Weather</h1>
+				<button
+					onClick={() => setIsDarkMode(!isDarkMode)}
+					style={{ margin: "10px" }}
+				>
+					{isDarkMode ? "🌝" : "🌚"}
 				</button>
-				<button onClick={findMe}>Locate 📍</button>
+				<button onClick={findMe}>📍</button>
 			</div>
+
 			{report}
+
 		</>
 	)
 }

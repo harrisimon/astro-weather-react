@@ -9,8 +9,14 @@
 	min-width: 320px;
 	width: 100%;
 	transition: background-color 0.3s, color 0.3s;
+	font-family: "Agdasima", sans-serif;
+	font-size: large;
 }
 /* Light mode styles */
+.title {
+	font-family: "Poppins", sans-serif;
+	font-family: "Space Mono", monospace;
+}
 .hr {
 	display: flex;
 	flex-direction: column;
@@ -95,6 +101,7 @@
 }
 
 /* Dark mode styles */
+
 .dark-mode {
 	background-color: #121212;
 	color: #ffffff;
@@ -141,7 +148,7 @@
 	background-color: #121212;
 	position: sticky;
 	top: 0;
-	left:0;
+	left: 0;
 	z-index: 2;
 }
 
@@ -150,7 +157,7 @@
 	content: "";
 	display: block;
 	top: 0;
-	left:0;
+	left: 0;
 	width: 100%;
 	position: absolute;
 	z-index: -1;
@@ -165,91 +172,88 @@
 		width: 20px;
 	}
 	.blank-header {
-	
 		width: 20px;
 	}
-  }
+}
 
-  /* make the ball class bounce back and forth */
-  .ball {
+/* make the ball class bounce back and forth */
+.ball {
 	/* make this div a ball */
-	width: 50px;
-	height: 50px;
+	position: relative;
+	width: 120px;
+	height: 120px;
 	border-radius: 50%;
 	background-color: lightblue;
 	animation: bounce 1s infinite;
-	
-	
+	filter: blur(20px);
 }
-/* write the bounce animation to move back and forth between two points and have the ball change into a star at 50%*/
+
+.sun {
+	position: relative;
+	z-index: 1;
+	/* move this up relative to the ball */
+	top: 75px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: yellow;
+	animation: sun-bounce 1s infinite;
+}
 
 @keyframes bounce {
 	0% {
-		transform: translateX(0);
+		transform: translateX(-100px);
 	}
 	50% {
 		transform: translateX(100px);
-		
+
 		background-color: #494545;
 	}
 	100% {
-		transform: translateX(0);
+		transform: translateX(-100px);
 		border-radius: 50%;
 		background-color: lightblue;
 	}
 }
-
-
-/* write some rules to make a darkmode */
-
-
-
-	
-
-
-/* #key {
-	display: flex;
-  flex-direction: column;
-	align-items: stretch;
-	text-align: center;
-
-	background-color: #f1f1f1;
-}
-tr {
-  height: 90px;
-  text-overflow: ellipsis;
-  align-items: center;
-
-}
-ul {
-	list-style: none;
+@keyframes sun-bounce {
+	0% {
+		transform: translateX(-100px);
+	}
+	50% {
+		transform: translateX(100px);
+		background-color: lightgrey;
+	}
+	100% {
+		transform: translateX(-100px);
+		border-radius: 50%;
+		background-color: yellow;
+	}
 }
 
-#scrollable-view {
-	flex: 1;
-	overflow-y: scroll;
-	padding: 20px;
+.dark-mode ::-webkit-scrollbar {
+	height: 10px;
+	background-color: #333333;
+}
+.dark-mode ::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 20px;
+}
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+.dark-mode ::-webkit-scrollbar-button:single-button:horizontal:decrement {
+	border-width: 0 8px 8px 8px;
+	border-color: transparent transparent #555555 transparent;
 }
 
-table {
-	width: 80%;
-	border-collapse: collapse;
-  text-align: center;
+.dark-mode ::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
+	border-color: transparent transparent #777777 transparent;
 }
 
-th,
-td {
-	/* border: 1px solid #ddd; */
-
-  /* margin: 0;
-	text-align: left;
-  text-overflow: ellipsis;
+.dark-mode ::-webkit-scrollbar-button:single-button {
+	background-color: #bbbbbb;
+	display: block;
+	border-style: solid;
+	height: 13px;
+	width: 16px;
 }
-
-th {
-	background-color: #f2f2f2;
-}
-.scrolly {
-  height: 200px;
-  overflow: scroll;
-} */ 

@@ -23,9 +23,11 @@ const Loading = () => {
     return (
         <div className="loading">
             {/* make a ball bounce back and forth */}
-            <div className="ball"></div>
-
             <p>Loading...</p>
+            <span className="sun"></span>
+            <span className="ball"></span>
+
+
         </div>
     )
 }

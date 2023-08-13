@@ -18,6 +18,28 @@ const Table = (props: any) => {
 		"Wind (10m)",
 	]
 
+	// make the background of the table cells change color based on the value
+	// of the data point
+	const getCellColor = (value: number) => {
+		if (value <= 2) {
+			return "#00ff00"
+		} else if (value <= 4) {
+			return "#80ff00"
+		} else if (value <= 6) {
+			return "#ffff00"
+		} else if (value <= 8) {
+			return "#ff8000"
+		} else {
+			return "#ff0000"
+		}
+	}
+	// apply getCellColor to the table cells
+	const getCellStyle = (value: number) => {
+		return {
+			backgroundColor: getCellColor(value),
+		}
+	}
+
 	return (
 		<div className="table-container">
 			<table className="weather-table">
