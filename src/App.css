@@ -230,6 +230,34 @@
 	}
 }
 
+::-webkit-scrollbar {
+	height: 10px;
+	background-color: #f5f5f5;
+}
+::-webkit-scrollbar-thumb {
+	background: #555;
+	border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover {
+	/* make this the normal color */
+	background: #888;
+}
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+	border-width: 0 8px 8px 8px;
+	border-color: transparent transparent #555555 transparent;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
+	border-color: transparent transparent #777777 transparent;
+}
+
+::-webkit-scrollbar-button:single-button {
+	background-color: #bbbbbb;
+	display: block;
+	border-style: solid;
+	height: 13px;
+	width: 16px;
+}
 .dark-mode ::-webkit-scrollbar {
 	height: 10px;
 	background-color: #333333;

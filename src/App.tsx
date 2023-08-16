@@ -22,7 +22,6 @@ function App() {
 		} else {
 			document.body.classList.remove("dark-mode")
 		}
-		console.log('help')
 	}, [isDarkMode])
 	window
 		.matchMedia("(prefers-color-scheme: dark)")
@@ -63,7 +62,7 @@ function App() {
 					)
 
 					let end = performance.now()
-					console.log(end - start)
+					console.log(end - start, "seconds")
 				},
 				(error) => {
 					console.error("Error fetching data", error)
@@ -76,7 +75,7 @@ function App() {
 
 	let report
 	if (weather && !loading) {
-		console.log(sunrise)
+		// console.log(sunrise)
 		report = <Table weather={weather} />
 	} else if (!weather && !loading) {
 		{
