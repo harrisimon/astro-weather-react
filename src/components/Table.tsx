@@ -18,6 +18,11 @@ const Table = (props: any) => {
 		"Wind (10m)",
 	]
 
+	// make the background of the table cells change color based on the value
+	// of the data point
+
+
+
 	return (
 		<div className="table-container">
 			<table className="weather-table">

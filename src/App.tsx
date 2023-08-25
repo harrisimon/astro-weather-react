@@ -5,6 +5,17 @@ import Loading from "./components/Loading"
 import axios from "axios"
 import "./App.css"
 
+
+export const colorMapping = {
+	// add any type to this
+	"1": "#0000FF",    // Example color for "Rain" condition
+
+
+	"Clear": "#00FF00",   // Example color for "Clear" condition
+	"Cloudy": "#808080",  // Example color for "Cloudy" condition
+	// Add more mappings for other conditions
+  };
+
 function App() {
 	const [location, setLocation] = useState<location>({ lat: 0, long: 0 })
 	const [loading, setLoading] = useState<boolean>(false)
