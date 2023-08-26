@@ -5,8 +5,6 @@ import Loading from "./components/Loading"
 import axios from "axios"
 import "./App.css"
 
-const netlifyURL = '/.netlify/functions/proxy'
-
 export const colorMapping = {
 	// add any type to this
 	"1": "#0000FF",    // Example color for "Rain" condition
