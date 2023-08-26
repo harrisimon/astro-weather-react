@@ -71,6 +71,7 @@ function App() {
 							const [astroResponse, sunriseResponse] = response
 							const astroData = astroResponse.data.dataseries
 							const sunriseData = sunriseResponse.data.results
+							console.log(astroResponse)
 							setWeather(astroData)
 							setSunrise(sunriseData)
 							setLoading(false)
