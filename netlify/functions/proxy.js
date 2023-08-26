@@ -2,8 +2,10 @@
 
 const fetch = require('node-fetch');
 
-exports.handler = async (event, context, lat, long) => {
-  const url = `http://www.7timer.info/bin/api.pl?lon=${long}&lat=${lat}&product=astro&output=json`; // Replace with your API's HTTP URL
+exports.handler = async (event, context) => {
+    const variable1 = event.queryStringParameters.variable1;
+    const variable2 = event.queryStringParameters.variable2;
+  const url = `http://www.7timer.info/bin/api.pl?lon=${variable1}&lat=${variable2}&product=astro&output=json`; // Replace with your API's HTTP URL
 
   try {
     const response = await fetch(url);

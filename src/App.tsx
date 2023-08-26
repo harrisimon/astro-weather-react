@@ -60,6 +60,8 @@ function App() {
 					let start = performance.now()
 					
 					// const astroAPIURL = `http://www.7timer.info/bin/api.pl?lon=${long}&lat=${lat}&product=astro&output=json`
+					const netlifyURL = `/.netlify/functions/proxy?variable1=${long}&variable2=${lat}`;
+
 
 					const sunriseAPIURL = `https://api.sunrisesunset.io/json?lat=${lat}&lng=${long}`
 					// const astroAPI = axios.get(astroAPIURL)
