@@ -9,11 +9,11 @@ const url = `http://www.7timer.info/bin/api.pl?lon=${variable1}&lat=${variable2}
 try {
   const response = await fetch(url);
   const data = await response.json();
-  console.log(data)
+  console.log( data)
 
   return {
     statusCode: 200,
-    body: data,
+    body: JSON.stringify(data),
   };
 } catch (error) {
   return {
