@@ -5,6 +5,7 @@ import Loading from "./components/Loading"
 import axios from "axios"
 import "./App.css"
 
+const netlifyURL = '/.netlify/functions/proxy'
 
 export const colorMapping = {
 	// add any type to this
@@ -57,10 +58,12 @@ function App() {
 					})
 					// Construct the URL with latitude and longitude as query parameters
 					let start = performance.now()
-					const astroAPIURL = `http://www.7timer.info/bin/api.pl?lon=${long}&lat=${lat}&product=astro&output=json`
+					
+					// const astroAPIURL = `http://www.7timer.info/bin/api.pl?lon=${long}&lat=${lat}&product=astro&output=json`
 
 					const sunriseAPIURL = `https://api.sunrisesunset.io/json?lat=${lat}&lng=${long}`
-					const astroAPI = axios.get(astroAPIURL)
+					// const astroAPI = axios.get(astroAPIURL)
+					const astroAPI = axios.get(netlifyURL)
 					const sunriseAPI = axios.get(sunriseAPIURL)
 					Promise.all([astroAPI, sunriseAPI]).then(
 						// add astro api response to weather state
