@@ -17,9 +17,11 @@ export const colorMapping = {
   };
 
 function App() {
+	// @ts-ignore
 	const [location, setLocation] = useState<location>({ lat: 0, long: 0 })
 	const [loading, setLoading] = useState<boolean>(false)
 	const [weather, setWeather] = useState<any>(null)
+	// @ts-ignore
 	const [sunrise, setSunrise] = useState<any>(null)
 	const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
 
