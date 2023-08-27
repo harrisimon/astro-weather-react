@@ -16,6 +16,13 @@
 .title {
 	font-family: "Poppins", sans-serif;
 	font-family: "Space Mono", monospace;
+	overflow: hidden;
+	margin: 0;
+	float: left;
+	/* font-size: 1rem; */
+}
+h1 {
+	margin: .5rem;
 }
 .hr {
 	display: flex;

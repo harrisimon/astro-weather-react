@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { location } from "./types"
 import Table from "./components/Table"
 import Loading from "./components/Loading"
@@ -7,13 +7,12 @@ import "./App.css"
 
 export const colorMapping = {
 	// add any type to this
-	"1": "#0000FF",    // Example color for "Rain" condition
+	"1": "#0000FF", // Example color for "Rain" condition
 
-
-	"Clear": "#00FF00",   // Example color for "Clear" condition
-	"Cloudy": "#808080",  // Example color for "Cloudy" condition
+	Clear: "#00FF00", // Example color for "Clear" condition
+	Cloudy: "#808080", // Example color for "Cloudy" condition
 	// Add more mappings for other conditions
-  };
+}
 
 function App() {
 	// @ts-ignore
@@ -26,7 +25,7 @@ function App() {
 
 	useEffect(() => {
 		if (
-			isDarkMode ||
+			isDarkMode == true ||
 			(window.matchMedia &&
 				window.matchMedia("(prefers-color-scheme: dark)").matches)
 		) {
@@ -35,12 +34,12 @@ function App() {
 			document.body.classList.remove("dark-mode")
 		}
 	}, [isDarkMode])
-	window
-		.matchMedia("(prefers-color-scheme: dark)")
-		.addEventListener("change", (event) => {
-			const newColorScheme = event.matches ? "dark" : "light"
-			console.log(newColorScheme)
-		})
+	// window
+	// 	.matchMedia("(prefers-color-scheme: dark)")
+	// 	.addEventListener("change", (event) => {
+	// 		const newColorScheme = event.matches ? "dark" : "light"
+	// 		console.log(newColorScheme)
+	// 	})
 
 	const findMe = () => {
 		setLoading(true)
@@ -56,10 +55,9 @@ function App() {
 					})
 					// Construct the URL with latitude and longitude as query parameters
 					let start = performance.now()
-					
-					// const astroAPIURL = `http://www.7timer.info/bin/api.pl?lon=${long}&lat=${lat}&product=astro&output=json`
-					const netlifyURL = `/.netlify/functions/proxy?variable1=${long}&variable2=${lat}`;
 
+					// const astroAPIURL = `http://www.7timer.info/bin/api.pl?lon=${long}&lat=${lat}&product=astro&output=json`
+					const netlifyURL = `/.netlify/functions/proxy?variable1=${long}&variable2=${lat}`
 
 					const sunriseAPIURL = `https://api.sunrisesunset.io/json?lat=${lat}&lng=${long}`
 					// const astroAPI = axios.get(astroAPIURL)
@@ -71,7 +69,7 @@ function App() {
 							const [astroResponse, sunriseResponse] = response
 							const astroData = astroResponse.data.dataseries
 							const sunriseData = sunriseResponse.data.results
-							console.log(astroResponse)
+							// console.log(astroResponse)
 							setWeather(astroData)
 							setSunrise(sunriseData)
 							setLoading(false)
@@ -98,7 +96,8 @@ function App() {
 		{
 			report = (
 				<div className="loading">
-					<p>Click locate to get weather</p>
+					<h4>Click locate to get weather</h4>
+					<small>Geolocation required</small>
 				</div>
 			)
 		}
@@ -111,9 +110,10 @@ function App() {
 	}
 
 	return (
-		<>
-			<div>
-				<h1 className="title">Astro Weather</h1>
+		<React.Fragment>
+			<div className="title">
+				<h1>Astro Weather</h1>
+
 				<button
 					onClick={() => setIsDarkMode(!isDarkMode)}
 					style={{ margin: "10px" }}
@@ -124,8 +124,7 @@ function App() {
 			</div>
 
 			{report}
-
-		</>
+		</React.Fragment>
 	)
 }
 
