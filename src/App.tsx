@@ -124,6 +124,11 @@ function App() {
 			</div>
 
 			{report}
+			<footer>
+				<small>
+					Created by <a href="https://harrison-simon.netlify.app">Harrison Simon</a>
+				</small>
+			</footer>
 		</React.Fragment>
 	)
 }
