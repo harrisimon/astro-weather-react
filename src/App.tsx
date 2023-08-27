@@ -116,7 +116,7 @@ function App() {
 
 				<button
 					onClick={() => setIsDarkMode(!isDarkMode)}
-					style={{ margin: "10px" }}
+					
 				>
 					{isDarkMode ? "🌝" : "🌚"}
 				</button>
